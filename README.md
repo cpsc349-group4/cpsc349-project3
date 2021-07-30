@@ -13,7 +13,6 @@ Install and start the project:
 ```shell-session
 $ npm install
 $ npm start
-
 ```
 
 Open the [newly generated site](http://localhost:3000/)
