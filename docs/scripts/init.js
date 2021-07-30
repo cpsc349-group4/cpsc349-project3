@@ -33,7 +33,7 @@ if(document.getElementById('loginButton')){
 if(document.getElementById('newPostButton')){
     const newPostButton = document.getElementById('newPostButton');
     newPostButton.onclick = () => {
-        let postText = document.getElementById('PostText').value;
+        let postText = document.getElementById('postText').value;
         let data = mockroblog.postMessage(4, postText)
         console.log(data);
     }
