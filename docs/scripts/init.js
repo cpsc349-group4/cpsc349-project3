@@ -9,6 +9,16 @@ publicTimeline.forEach(post => {
     publicDisplay.innerHTML += `<article class="post"><div class="userId">User: ${post.id}</div><div class="postText">${post.text}</div><div class="postTimestamp">${post.timestamp}</div></article>`;
 });
 
+//display myposts
+const myPostsTimeline = mockroblog.getUserTimeline('ProfAvery');
+const myPostsDisplay = document.querySelector('#myPostsTimeline-json'); 
+
+if(myPostsDisplay != null){
+    myPostsTimeline.forEach(post => {
+        myPostsDisplay.innerHTML += `<article class="post"><div class="userId">User: ${post.id}</div><div class="postText">${post.text}</div><div class="postTimestamp">${post.timestamp}</div></article>`;
+    });
+}
+
 //authenticate user data from login form on login button click
 if(document.getElementById('loginButton')){
     const loginButton = document.getElementById('loginButton');
