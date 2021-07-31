@@ -45,7 +45,7 @@ if(document.getElementById('loginButton')){
             window.sessionStorage.setItem('userid', data.id);
             window.sessionStorage.setItem('user', data.username);
             console.log(data);
-            window.location = window.location.toString().replace('index.html', 'myPosts.html')
+            window.location = window.location.toString().append('myPosts.html')
         }
     }
 }
