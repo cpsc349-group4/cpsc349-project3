@@ -4,8 +4,9 @@ window.mockroblog = mockroblog;
 //display public timeline
 const publicTimeline = mockroblog.getPublicTimeline();
 const homeTimeline = mockroblog.getHomeTimeline(window.sessionStorage.getItem('user'));
-
 const userTimeline = mockroblog.getUserTimeline(window.sessionStorage.getItem('user'));
+const curTimeLine = mockroblog.getUserTimeline(window.sessionStorage.getItem('usersearch'));
+
 
 const publicDisplay = document.querySelector('#publicTimeline-json');
 if(publicDisplay != null){
@@ -25,6 +26,13 @@ if(homeDisplay != null){
         homeDisplay.innerHTML += `<article class="post"><div class="userId">User: ${mockroblog.GetUserFromId(post.user_id)}</div><div class="postText">${post.text}</div><div class="postTimestamp">${post.timestamp}</div></article>`;
     });
 }
+const curDisplay = document.querySelector('#curatedTimeline-json');
+if(curDisplay != null){
+    curTimeLine.forEach(post => {
+        curDisplay.innerHTML += `<article class="post"><div class="userId">User: ${mockroblog.GetUserFromId(post.user_id)}</div><div class="postText">${post.text}</div><div class="postTimestamp">${post.timestamp}</div></article>`;
+    });
+}
+
 
 //authenticate user data from login form on login button click
 if(document.getElementById('loginButton')){
@@ -37,7 +45,20 @@ if(document.getElementById('loginButton')){
             window.sessionStorage.setItem('userid', data.id);
             window.sessionStorage.setItem('user', data.username);
             console.log(data);
-            window.location = window.location.toString().replace('index.html', 'curatedTimeline.html')
+            window.location = window.location.toString().replace('index.html', 'myPosts.html')
+        }
+    }
+}
+
+//SearchUser
+if(document.getElementById('Search')){
+    const loginButton = document.getElementById('Search');
+    loginButton.onclick = () => {
+        let username = document.getElementById('User').value;
+        if(username != null){
+            console.log(username);
+            window.sessionStorage.setItem('usersearch', username);
+            location.reload();
         }
     }
 }
