@@ -3,18 +3,26 @@ window.mockroblog = mockroblog;
 
 //display public timeline
 const publicTimeline = mockroblog.getPublicTimeline();
-const userTimeline = mockroblog.getUserTimeline('ProfAvery');
+const homeTimeline = mockroblog.getHomeTimeline(window.sessionStorage.getItem('user'));
+
+const userTimeline = mockroblog.getUserTimeline(window.sessionStorage.getItem('user'));
 
 const publicDisplay = document.querySelector('#publicTimeline-json');
 if(publicDisplay != null){
     publicTimeline.forEach(post => {
-        publicDisplay.innerHTML += `<article class="post"><div class="userId">User: ${post.id}</div><div class="postText">${post.text}</div><div class="postTimestamp">${post.timestamp}</div></article>`;
+        publicDisplay.innerHTML += `<article class="post"><div class="userId">User: ${mockroblog.GetUserFromId(post.user_id)}</div><div class="postText">${post.text}</div><div class="postTimestamp">${post.timestamp}</div></article>`;
     });
 }
-const userpubDisplay = document.querySelector('#curatedTimeline-json');
+const userpubDisplay = document.querySelector('#myPostsTimeline-json');
 if(userpubDisplay != null){
     userTimeline.forEach(post => {
-        userpubDisplay.innerHTML += `<article class="post"><div class="userId">User: ${post.id}</div><div class="postText">${post.text}</div><div class="postTimestamp">${post.timestamp}</div></article>`;
+        userpubDisplay.innerHTML += `<article class="post"><div class="userId">User: ${mockroblog.GetUserFromId(post.user_id)}</div><div class="postText">${post.text}</div><div class="postTimestamp">${post.timestamp}</div></article>`;
+    });
+}
+const homeDisplay = document.querySelector('#homeTimeline-json');
+if(homeDisplay != null){
+    homeTimeline.forEach(post => {
+        homeDisplay.innerHTML += `<article class="post"><div class="userId">User: ${mockroblog.GetUserFromId(post.user_id)}</div><div class="postText">${post.text}</div><div class="postTimestamp">${post.timestamp}</div></article>`;
     });
 }
 
@@ -25,7 +33,12 @@ if(document.getElementById('loginButton')){
         let username = document.getElementById('username').value;
         let password = document.getElementById('password').value;
         let data = mockroblog.authenticateUser(username, password);
-        console.log(data);
+        if(data != null){
+            window.sessionStorage.setItem('userid', data.id);
+            window.sessionStorage.setItem('user', data.username);
+            console.log(data);
+            window.location = window.location.toString().replace('index.html', 'curatedTimeline.html')
+        }
     }
 }
 
@@ -34,7 +47,7 @@ if(document.getElementById('newPostButton')){
     const newPostButton = document.getElementById('newPostButton');
     newPostButton.onclick = () => {
         let postText = document.getElementById('postText').value;
-        let data = mockroblog.postMessage(4, postText)
+        let data = mockroblog.postMessage(window.sessionStorage.getItem('userid') , postText);
         console.log(data);
     }
 }
