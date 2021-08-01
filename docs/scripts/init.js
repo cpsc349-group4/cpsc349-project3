@@ -11,25 +11,63 @@ const curTimeLine = mockroblog.getUserTimeline(window.sessionStorage.getItem('us
 const publicDisplay = document.querySelector('#publicTimeline-json');
 if(publicDisplay != null){
     publicTimeline.forEach(post => {
-        publicDisplay.innerHTML += `<article class="post"><div class="userId">User: ${mockroblog.GetUserFromId(post.user_id)}</div><div class="postText">${post.text}</div><div class="postTimestamp">${post.timestamp}</div></article>`;
+        publicDisplay.innerHTML += `<article class="post">
+        <div class="userId">User: ${mockroblog.GetUserFromId(post.user_id)}</div>
+        <div class="postText">${post.text}</div>
+        <div class="postTimestamp">${post.timestamp}</div>
+        <button class="Btn"> Follow </button>
+        </article>`;
+        
     });
+    const followButton = document.getElementsByClassName('Btn')
+    Array.from(followButton).forEach((followButton) => {
+        let lastButton = 'Unfollow'
+        followButton.addEventListener('click', function () {
+            const tempBtn = followButton.innerHTML
+            followButton.innerHTML = lastButton
+            lastButton = tempBtn
+      })
+    })
 }
+  
 const userpubDisplay = document.querySelector('#myPostsTimeline-json');
 if(userpubDisplay != null){
     userTimeline.forEach(post => {
-        userpubDisplay.innerHTML += `<article class="post"><div class="userId">User: ${mockroblog.GetUserFromId(post.user_id)}</div><div class="postText">${post.text}</div><div class="postTimestamp">${post.timestamp}</div></article>`;
+        userpubDisplay.innerHTML += `<article class="post">
+        <div class="userId">User: ${mockroblog.GetUserFromId(post.user_id)}</div>
+        <div class="postText">${post.text}</div>
+        <div class="postTimestamp">${post.timestamp}</div> 
+        </article>`;
     });
 }
 const homeDisplay = document.querySelector('#homeTimeline-json');
 if(homeDisplay != null){
     homeTimeline.forEach(post => {
-        homeDisplay.innerHTML += `<article class="post"><div class="userId">User: ${mockroblog.GetUserFromId(post.user_id)}</div><div class="postText">${post.text}</div><div class="postTimestamp">${post.timestamp}</div></article>`;
+        homeDisplay.innerHTML += `<article class="post">
+        <div class="userId">User: ${mockroblog.GetUserFromId(post.user_id)}</div>
+        <div class="postText">${post.text}</div>
+        <div class="postTimestamp">${post.timestamp}</div> 
+        <button class="Btn"> Unfollow </button>
+        </article>`;
     });
+    const followButton = document.getElementsByClassName('Btn')
+    Array.from(followButton).forEach((followButton) => {
+        let lastButton = 'Follow'
+        followButton.addEventListener('click', function () {
+            const tempBtn = followButton.innerHTML
+            followButton.innerHTML = lastButton
+            lastButton = tempBtn
+      })
+    })
 }
 const curDisplay = document.querySelector('#curatedTimeline-json');
 if(curDisplay != null){
     curTimeLine.forEach(post => {
-        curDisplay.innerHTML += `<article class="post"><div class="userId">User: ${mockroblog.GetUserFromId(post.user_id)}</div><div class="postText">${post.text}</div><div class="postTimestamp">${post.timestamp}</div></article>`;
+        curDisplay.innerHTML += `<article class="post">
+        <div class="userId">User: ${mockroblog.GetUserFromId(post.user_id)}</div>
+        <div class="postText">${post.text}</div>
+        <div class="postTimestamp">${post.timestamp}</div>
+        </article>`;
     });
 }
 
